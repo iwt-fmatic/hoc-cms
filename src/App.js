@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from 'react';
+import { Navbar } from "./components/navbar/navbar";
+import PostList from './components/postlist/postlist';
+import posts from "./posts.json";
+import Form from './components/form/form';
 
-function App() {
+const App = () => {
+  const [posts, setPosts] = useState([]);
+
+  const addPost = post => {
+    setPosts([...posts, post]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Router>
+        <Navbar />
+        <Routes>
+
+        </Routes>
+      </Router>
+      <h1>Simple CMS System</h1>
+      <Form addPost={addPost} />
+      <p>Posts:</p>
+      <ul>
+        {posts.map(post => (
+          <li key={post.title}>
+            <h2>{post.title}</h2>
+            <p>{post.text}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
+  
+
